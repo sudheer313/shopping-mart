@@ -20,10 +20,10 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route path="products">
-            <Route exact path="" element={<ProductList />} />
-            <Route path="product" element={<Product />} />
-          </Route>
+          {/* <Route path="products"> */}
+          <Route exact path="Products" element={<ProductList />} />
+          <Route path="products/:id" element={<Product />} />
+          {/* //</Route> */}
           <Route path="about" element={<About />} />
           <Route path="contactus" element={<ContactUs />} />
           <Route path="cart" element={<Cart />} />

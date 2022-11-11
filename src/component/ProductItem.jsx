@@ -6,7 +6,7 @@ const ProductItem = ({product}) => {
   <div className="card h-100 text-center p-4">
     <img
       src={product.image}
-      class
+      className
       alt={product.title}
       height="250px"
     />
@@ -15,7 +15,7 @@ const ProductItem = ({product}) => {
         {product.title.substring(0, 12)}
       </h5>
       <p className="card-text">${product.price}</p>
-      <Link to="#" className="btn btn-outline-dark ">
+      <Link to={`/products/${product.id}`} className="btn btn-outline-dark ">
         Buy NOW
       </Link>
     </div>
