@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const state=useSelector((state)=>state.handleCart)
   return (
     <nav className="navbar  navbar-expand-lg bg-light py-3 shadow-sm">
       <div className="container-fluid">
