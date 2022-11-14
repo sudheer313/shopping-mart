@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -52,7 +53,7 @@ const Navbar = () => {
               Register
             </Link>
             <Link to="/cart" className="btn btn-outline-dark mx-2">
-              Cart
+              Cart({state.length})
             </Link>
           </div>
         </div>
