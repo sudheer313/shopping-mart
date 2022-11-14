@@ -6,7 +6,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 import { Provider } from "react-redux";
-import store from "./pages/redux/action/store"
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

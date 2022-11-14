@@ -1,16 +1,39 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ProductItem from "../component/ProductItem";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../redux/cartSlice";
 
 const Cart = () => {
-  const state = useSelector((state) => state.handleCart);
-  
-  console.log(state);
-  return <div>
-        {state.map((product) => {
-          return <ProductItem product={product} key={product.id} />;
-        })}
-  </div>;
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
+  const dispatch = useDispatch();
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
+  return (
+    <div>
+      {cart.products.map((product) => (
+        <>
+          <img
+            src={product.image}
+            alt={product.title}
+            height="400px"
+            width="400px"
+            key={product.image}
+          />
+          <p>{product.title}</p>
+          <p>{product.description}</p>
+          <button
+            onClick={() => {
+              handleDeleteProduct(product.id);
+            }}
+          >
+            remove
+          </button>
+        </>
+      ))}
+    </div>
+  );
 };
 
 export default Cart;
