@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
       state.products = [...state.products, action.payload];
     },
     deleteProduct: (state,action) => {
-      state.products=state.products.filter((product)=>product.id !== action.payload)
+      state.products=state.products.filter((product)=>product.cartItemId!== action.payload.cartItemId)
     },
   },
 });

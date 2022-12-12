@@ -7,8 +7,8 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
   const dispatch = useDispatch();
-  const handleDeleteProduct = (productId) => {
-    dispatch(deleteProduct(productId));
+  const handleDeleteProduct = (product) => {
+    dispatch(deleteProduct({cartItemId:product.cartItemId}));
   };
   return (
     <div>
@@ -25,7 +25,7 @@ const Cart = () => {
           <p>{product.description}</p>
           <button
             onClick={() => {
-              handleDeleteProduct(product.id);
+              handleDeleteProduct(product);
             }}
           >
             remove

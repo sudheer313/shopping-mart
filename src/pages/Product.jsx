@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useParams } from "react-router";
 import Loading from "../component/Loading";
@@ -10,7 +10,7 @@ const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +26,9 @@ const Product = () => {
 
   const ShowProduct = () => {
     const handleAddtoCart = () => {
-      dispatch(addProduct(product));
+      dispatch(
+        addProduct({ ...product, cartItemId: cart.products.length + 1 })
+      );
     };
     return (
       <>
