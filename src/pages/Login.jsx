@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../utils/axiosConfig";
+import { useDispatch } from "react-redux";
+import { loginError, loginStart, loginSucess } from "../redux/userSlice";
+
 const Login = () => {
-//useNavigateHook
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  //useNavigateHook
   const navigate = useNavigate();
-  const handleLogin = async () => {
+  const handleLoginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log(result.user);
@@ -14,7 +21,7 @@ const Login = () => {
       console.log(error);
     }
   };
-  const handleSignout = async () => {
+  const handleSignoutWithGoogle = async () => {
     try {
       const result = await signOut(auth);
       console.log("signout sucessfull");
@@ -22,10 +29,37 @@ const Login = () => {
       console.log(error);
     }
   };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+    try {
+      const res = await axiosInstance.post("/auth/signin", { email, password });
+      dispatch(loginSucess(res.data));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      dispatch(loginError());
+    }
+  };
   return (
     <div>
-      <button onClick={handleLogin}>login</button>
-      <button onClick={handleSignout}>Signout</button>
+      <button onClick={handleLoginWithGoogle}>login</button>
+      <button onClick={handleSignoutWithGoogle}>Signout</button>
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="sumbit">Sign In</button>
+      </form>
     </div>
   );
 };
