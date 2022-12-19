@@ -1,9 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../redux/userSlice";
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
+  const { loggedInUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
   return (
     <nav className="navbar  navbar-expand-lg bg-light py-3 shadow-sm">
       <div className="container-fluid">
@@ -46,15 +54,29 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="buttons">
-            <Link to="/login" className="btn btn-outline-dark mx-2">
-              Login
-            </Link>
-            <Link to="/register" className="btn btn-outline-dark mx-2">
-              Register
-            </Link>
-            <Link to="/cart" className="btn btn-outline-dark mx-2">
-              Cart ({cart.products.length})
-            </Link>
+            {loggedInUser ? (
+              <>
+                <Link to="/cart" className="btn btn-outline-dark mx-2">
+                  Cart ({cart.products.length})
+                </Link>
+                <button
+                  className="btn btn-outline-dark px-4 py-2"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Link to="/login" className="btn btn-outline-dark mx-2">
+                  Login
+                </Link>
+                <Link to="/register" className="btn btn-outline-dark mx-2">
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

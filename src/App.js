@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Navbar from "./component/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { Register } from "./pages/Register";
 import Home from "./pages/Home";
@@ -10,8 +10,11 @@ import Product from "./pages/Product";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import Cart from "./pages/Cart";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { loggedInUser } = useSelector((state) => state.user);
+
   return (
     <>
       <BrowserRouter>
@@ -19,7 +22,10 @@ function App() {
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={loggedInUser ? <Navigate to="/" /> : <Login />}
+          />
           {/* <Route path="products"> */}
           <Route exact path="Products" element={<ProductList />} />
           <Route path="products/:id" element={<Product />} />

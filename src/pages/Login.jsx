@@ -41,10 +41,14 @@ const Login = () => {
       dispatch(loginError());
     }
   };
+  const handlesignup=async(e)=>{
+
+  }
   return (
     <div>
       <button onClick={handleLoginWithGoogle}>login</button>
       <button onClick={handleSignoutWithGoogle}>Signout</button>
+      <button onClick={handlesignup}>SignUp</button>
       <form onSubmit={handleLogin}>
         <input
           type="email"
