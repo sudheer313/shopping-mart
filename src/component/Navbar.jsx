@@ -56,6 +56,7 @@ const Navbar = () => {
           <div className="buttons">
             {loggedInUser ? (
               <>
+                <span>{loggedInUser?.username}</span>
                 <Link to="/cart" className="btn btn-outline-dark mx-2">
                   Cart ({cart.products.length})
                 </Link>

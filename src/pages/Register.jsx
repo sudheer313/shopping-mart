@@ -1,13 +1,23 @@
+import { signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signupStart, signupSucess } from "../redux/userSlice";
+import {
+  loginError,
+  loginStart,
+  loginSucess,
+  signupStart,
+  signupSucess,
+} from "../redux/userSlice";
 import { axiosInstance } from "../utils/axiosConfig";
+import { auth, googleProvider } from "../firebase";
+import Loading from "../component/Loading";
 
 export const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loading } = useSelector((state) => state.user);
 
   //useNavigatehook
   const navigate = useNavigate();
@@ -37,6 +47,29 @@ export const Register = () => {
       console.log(error);
     }
   };
+
+  //handle signup with google
+
+  const handleSignupWithGoogle = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const apiResponse = await axiosInstance.post("/auth/google", {
+        username: result.user.displayName,
+        email: result.user.email,
+      });
+      dispatch(loginSucess(apiResponse.data));
+      console.log(result.user);
+      navigate("/");
+    } catch (error) {
+      dispatch(loginError());
+      console.log(error);
+    }
+  };
+  if (loading) {
+    <Loading />;
+  }
   return (
     <div>
       <h1> Create your account</h1>
@@ -59,6 +92,8 @@ export const Register = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleSignup}>signUp</button>
+      <span>OR</span>
+      <button onClick={handleSignupWithGoogle}>Signup With google</button>
     </div>
   );
 };
