@@ -11,6 +11,8 @@ import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import Cart from "./pages/Cart";
 import { useSelector } from "react-redux";
+import Success from "./component/Success";
+import Cancel from "./component/Cancel";
 
 function App() {
   const { loggedInUser } = useSelector((state) => state.user);
@@ -33,6 +35,8 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contactus" element={<ContactUs />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="success" element={<Success />} />
+          <Route path="cancel" element={<Cancel />} />
         </Routes>
       </BrowserRouter>
     </>

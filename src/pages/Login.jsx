@@ -85,7 +85,7 @@ const Login = () => {
   };
   const handlesignup = async (e) => {};
   if (loading) {
-    <Loading/>
+    <Loading />;
   }
   return (
     <div>
