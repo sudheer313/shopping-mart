@@ -17,15 +17,16 @@
 }
 
 .image-container {
-  max-width: auto;
   display: flex;
-  max-height: auto;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  height: 800px;
+  overflow: auto;
 }
 
 .image-container img {
-  max-width: 100px;
+  max-width: 500px;
   height: auto;
-  margin: 1rem;
+  margin: 0.5rem;
 }
